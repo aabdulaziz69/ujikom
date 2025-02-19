@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id('id_transaksi');
             $table->string('nama_pembeli');
-            $table->string('nama_barang');
+            $table->foreignId('id_barang')->constrained('barang', 'id_barang');
             $table->string('jumlah_barang');
-            $table->string('nama_kasir');
+            $table->foreignId('id')->constrained('users');
+            $table->foreignId('id_diskon')->constrained('diskon', 'id_diskon'); // Menambahkan relasi dengan diskon
             $table->string('bayar_total');
             $table->timestamp('tanggal_transaksi');
             $table->timestamps();
