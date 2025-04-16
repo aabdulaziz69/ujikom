@@ -7,7 +7,7 @@
 
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
     <link rel="icon" href=" {{ asset('kaiadmin') }}/assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fonts and icons -->
     <script src=" {{ asset('kaiadmin') }}/assets/js/plugin/webfont/webfont.min.js"></script>
@@ -324,6 +324,8 @@
     <script src=" {{ asset('kaiadmin') }}/assets/js/kaiadmin.min.js"></script>
     <script src=" {{ asset('kaiadmin') }}/assets/js/plugin/datatables/datatables.min.js"></script>
 
+
+
     <script>
         $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
             type: "line",
@@ -353,7 +355,9 @@
         });
 
     </script>
-    @yield('js')
+    @stack('scripts')
+
+   @yield('js')
 </body>
 
 </html>

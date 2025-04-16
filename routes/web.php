@@ -11,20 +11,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/proses-login', [AuthController::class, 'proses'])->name('proses.login');
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-Route::get('/barang', [BarangController::class, 'barang'])->name('barang');
-Route::get('/transaksi', [TransaksiController::class, 'transaksi'])->name('transaksi');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/transaksi', [TransaksiController::class, 'transaksi'])->name('transaksi');
+
+
+    //barang
+    Route::get('/barang', [BarangController::class, 'barang'])->name('barang');
+
+    Route::get('/barang/{id}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+    Route::put('/barang/{id}', [BarangController::class, 'update'])->name('barang.update');
+
+    Route::delete('/barang/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+    Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+    Route::post('barang', [BarangController::class, 'store'])->name('barang.store');
+
+    //user
+    Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
+
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+
+    //transaksi
+    // Tampilkan form tambah transaksi
+    Route::get('/transaksi/tambah', [TransaksiController::class, 'create'])->name('transaksi.tambah');
+
+    // Proses simpan transaksi
+    Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+
+
+    Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'cetakStruk'])->name('transaksi.struk');
+});
 // User
 Route::get('/user', [UserController::class, 'user'])->name('user');
 
 Route::get('user/tambah', [UserController::class, 'create'])->name('user.tambah');
 
-Route::post('user', [UserController::class, 'store'])->name('user.store');
-
-
-
-
+Route::post('user/tambah', [UserController::class, 'store'])->name('user.store');
+//edit user
