@@ -39,6 +39,8 @@ class BarangController extends Controller
             'harga_barang' => 'required|integer|min:0',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'barcode' => 'nullable|string|max:255',
+            'diskon' => 'nullable|integer|min:0|max:100',
+
         ]);
 
         // Menemukan data barang berdasarkan id
@@ -72,6 +74,8 @@ class BarangController extends Controller
             'harga_barang' => 'required|integer|min:0',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'barcode' => 'nullable|string|max:255',
+            'diskon' => 'nullable|integer|min:0|max:100',
+
         ]);
 
         // Jika ada gambar yang diupload

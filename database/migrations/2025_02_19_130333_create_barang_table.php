@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('nama_barang');
             $table->integer('harga_barang');
             $table->string('gambar')->nullable();     // Menyimpan path gambar
-            $table->string('barcode')->nullable();    // Bisa simpan kode barcode atau path barcode image
+            $table->string('barcode')->nullable();
+            $table->integer('diskon')->default(0);  
             $table->timestamps();
         });
     }

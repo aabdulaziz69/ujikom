@@ -14,11 +14,13 @@ class Transaksi extends Model
 
     // Di model Transaksi.php
     protected $fillable = [
-        'nama_pembeli',
+        'id_barang',
         'jumlah_barang',
         'id',
         'bayar_total',
         'tanggal_transaksi',
+        'diskon' => $request->diskon ?? 0,
+
     ];
 
 

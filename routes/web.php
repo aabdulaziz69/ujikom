@@ -43,9 +43,10 @@ Route::middleware('auth')->group(function () {
 
     // Proses simpan transaksi
     Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'struk'])->name('transaksi.struk');
 
+    Route::delete('/transaksi/{id_transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 
-    Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'cetakStruk'])->name('transaksi.struk');
 });
 // User
 Route::get('/user', [UserController::class, 'user'])->name('user');

@@ -47,6 +47,7 @@
                                         <th>Barcode</th>
                                         <th>Nama Barang</th>
                                         <th>Harga Barang</th>
+                                        <th>Diskon</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -56,25 +57,31 @@
                                             <td>{{ $item->id_barang }}</td>
                                             <td>
                                                 @if ($item->gambar)
-                                                    <img src="{{ asset('image/' . $item->gambar) }}" alt="{{ $item->nama_barang }}" width="60" class="img-thumbnail">
+                                                    <img src="{{ asset('storage/' . $item->gambar) }}"
+                                                        alt="{{ $item->nama_barang }}" width="130" class="img-thumbnail">
                                                 @else
                                                     <span class="text-muted">Tidak ada gambar</span>
                                                 @endif
                                             </td>
-                                            <td>{{ $item->barcode ?? '-' }}</td>
+                                            <td>{!! QrCode::size(150)->generate($item->nama_barang) !!}
+                                            </td>
                                             <td>{{ $item->nama_barang }}</td>
                                             <td>Rp {{ number_format($item->harga_barang, 0, ',', '.') }}</td>
+                                            <td>
+                                                {{ $item->diskon ? $item->diskon . '%' : '0%' }}
+                                            </td> <!-- Tampilkan diskon -->
                                             <td class="text-center">
                                                 <!-- Tombol Edit -->
                                                 <a href="{{ route('barang.edit', $item->id_barang) }}"
                                                     class="btn btn-warning btn-sm me-1">Edit</a>
 
                                                 <!-- Tombol Hapus -->
-                                                <form action="{{ route('barang.destroy', $item->id_barang) }}" method="POST"
-                                                    class="d-inline">
+                                                <form action="{{ route('barang.destroy', $item->id_barang) }}"
+                                                    method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="button" class="btn btn-danger btn-sm show-confirm">Hapus</button>
+                                                    <button type="button"
+                                                        class="btn btn-danger btn-sm show-confirm">Hapus</button>
                                                 </form>
                                             </td>
                                         </tr>

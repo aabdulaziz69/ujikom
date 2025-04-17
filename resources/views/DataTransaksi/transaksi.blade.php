@@ -20,7 +20,12 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $title }}</h4>
-                        <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
+                        @auth
+                            @if (auth()->user()->role === 'petugas')
+                                <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
+                            @endif
+                        @endauth
+
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -28,9 +33,9 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>ID Transaksi</th>
-                                        <th>Nama Pembeli</th>
+                                        <th>Nama Barang</th>
                                         <th>Jumlah Barang</th>
-                                        <th>ID User</th>
+                                        <th>Nama Petugas</th>
                                         <th>Total Bayar</th>
                                         <th>Tanggal Transaksi</th>
                                         <th class="text-center">Aksi</th>
@@ -39,37 +44,38 @@
                                 <tbody>
                                     @foreach ($transaksi as $trx)
                                         <tr>
-                                        <tr>
                                             <td>{{ $trx->id_transaksi }}</td>
-                                            <td>{{ $trx->nama_pembeli }}</td>
+                                            <td>{{ $trx->nama_barang }}</td>
                                             <td>{{ $trx->jumlah_barang }}</td>
-                                            <td>{{ $trx->id }}</td>
+                                            <td>{{ $trx->nama_user }}</td>
                                             <td>{{ $trx->bayar_total }}</td>
                                             <td>{{ $trx->tanggal_transaksi }}</td>
-                                            ...
-                                        </tr>
+                                            <td class="text-center">
+                                                <div class="d-flex justify-content-center">
+                                                    <a href="{{ route('transaksi.struk', $trx->id_transaksi) }}"
+                                                        class="btn btn-info btn-sm me-1" target="_blank">
+                                                        Struk
+                                                    </a>
+                                                    @auth
+                                                        @if (auth()->user()->role === 'petugas')
+                                                            <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
 
-                                        <td class="text-center">
-                                            <div class="d-flex justify-content-center">
+                                                            <form action="{{ route('transaksi.destroy', $trx->id_transaksi) }}"
+                                                                method="POST" class="d-inline">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="button"
+                                                                    class="btn btn-danger btn-sm show-confirm">Hapus</button>
 
-                                                <a href="#" class="btn btn-info btn-sm me-1" target="_blank"> Struk
-                                                </a>
-                                                <!-- Tombol Edit -->
-                                                <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
-
-                                                <!-- Tombol Hapus -->
-                                                <form action="#" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="button"
-                                                        class="btn btn-danger btn-sm show-confirm">Hapus</button>
-                                                </form>
-                                            </div>
-                                        </td>
-
+                                                            </form>
+                                                        @endif
+                                                    @endauth
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
                         </div>
                     </div>

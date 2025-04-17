@@ -80,12 +80,16 @@
                             </span>
                             <h4 class="text-section">Components</h4>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{ route('user') }}">
-                                <i class="fas fa-user"></i>
-                                <p>Data User</p>
-                            </a>
-                        </li>
+                        @auth
+                            @if (auth()->user()->role === 'admin')
+                                <li class="nav-item">
+                                    <a href="{{ route('user') }}">
+                                        <i class="fas fa-user"></i>
+                                        <p>Data User</p>
+                                    </a>
+                                </li>
+                            @endif
+                        @endauth
                         <li class="nav-item">
                             <a href="{{ route('barang') }}">
                                 <i class="fas fa-box"></i>
@@ -179,8 +183,6 @@
                                                 <div class="u-text">
                                                     <h4>{{ auth()->user()->name }}</h4>
                                                     <p class="text-muted">{{ auth()->user()->email }}</p>
-                                                    <a href="#" class="btn btn-xs btn-secondary btn-sm">View
-                                                        Profile</a>
                                                 </div>
                                             </div>
 
@@ -188,11 +190,6 @@
                                         <li>
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">My Profile</a>
-                                            <a class="dropdown-item" href="#">My Balance</a>
-                                            <a class="dropdown-item" href="#">Inbox</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Account Setting</a>
-                                            <div class="dropdown-divider"></div>
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 style="display: none;">
@@ -353,11 +350,10 @@
             lineColor: "#ffa534",
             fillColor: "rgba(255, 165, 52, .14)",
         });
-
     </script>
     @stack('scripts')
 
-   @yield('js')
+    @yield('js')
 </body>
 
 </html>
