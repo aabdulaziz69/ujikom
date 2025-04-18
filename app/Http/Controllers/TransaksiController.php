@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Transaksi;
 use App\Models\User;
 use App\Models\Barang;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Transaksi;
+use Illuminate\Http\Request;
+use App\Models\DetailTransaksi;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon; // opsional, tapi bisa bantu kalau mau custom
 
 
@@ -51,33 +52,26 @@ class TransaksiController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_barang' => 'required|string|max:255',
-            'jumlah_barang' => 'required|numeric',
-            'diskon' => 'nullable|numeric|min:0|max:100',
-            'id' => 'required|exists:users,id',
-            'bayar_total' => 'required|numeric',
-        ]);
+{
+    $transaksi = Transaksi::create([
+        'id' => $request->id,
+        'bayar_total' => str_replace('.', '', $request->bayar_total), // hilangkan titik
+        'tanggal_transaksi' => now(),
+    ]);
 
-        $barang = Barang::findOrFail($request->nama_barang);
-
-        $subtotal = $barang->harga_barang * $request->jumlah_barang;
-        $potongan = ($subtotal * ($request->diskon ?? 0)) / 100;
-        $total = $subtotal - $potongan;
-
-        Transaksi::create([
-            'id_barang' => $request->nama_barang,
-            'jumlah_barang' => $request->jumlah_barang,
-            'id' => $request->id,
-            'diskon' => $request->diskon ?? 0,
-            'bayar_total' => $request->bayar_total,
-            'tanggal_transaksi' => now()->setTimezone('Asia/Jakarta'),
-
-        ]);
-
-        return redirect()->route('transaksi')->with('success', 'Transaksi berhasil ditambahkan');
+    foreach ($request->barang_id as $index => $id_barang) {
+        if ($id_barang) {
+            DetailTransaksi::create([
+                'id_transaksi' => $transaksi->id_transaksi,
+                'id_barang' => $id_barang,
+                'jumlah_barang' => $request->jumlah[$index],
+            ]);
+        }
     }
+
+    return redirect()->route('transaksi')->with('success', 'Transaksi berhasil disimpan!');
+}
+
 
     public function update(Request $request, $id)
 {

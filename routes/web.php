@@ -30,7 +30,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
     Route::post('barang', [BarangController::class, 'store'])->name('barang.store');
 
-    //user
+    // User
+    Route::get('/user', [UserController::class, 'user'])->name('user');
+
+    Route::get('user/tambah', [UserController::class, 'create'])->name('user.tambah');
+
+    Route::post('user/tambah', [UserController::class, 'store'])->name('user.store');
+    //edit user
     Route::get('/user/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
     Route::put('/user/update/{user}', [UserController::class, 'update'])->name('user.update');
 
@@ -46,12 +52,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'struk'])->name('transaksi.struk');
 
     Route::delete('/transaksi/{id_transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
-
 });
-// User
-Route::get('/user', [UserController::class, 'user'])->name('user');
-
-Route::get('user/tambah', [UserController::class, 'create'])->name('user.tambah');
-
-Route::post('user/tambah', [UserController::class, 'store'])->name('user.store');
-//edit user

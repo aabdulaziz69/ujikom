@@ -22,9 +22,9 @@
                         <h4 class="card-title">{{ $title }}</h4>
                         @auth
                             @if (auth()->user()->role === 'petugas')
-                                <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
                             @endif
                         @endauth
+                        <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
 
                     </div>
                     <div class="card-body">
