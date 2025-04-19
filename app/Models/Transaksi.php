@@ -12,36 +12,23 @@ class Transaksi extends Model
     protected $table = 'transaksi';
     protected $primaryKey = 'id_transaksi';
 
-    // Di model Transaksi.php
     protected $fillable = [
-        'id_barang',
-        'jumlah_barang',
         'id',
         'bayar_total',
         'tanggal_transaksi',
-        'diskon' => $request->diskon ?? 0,
-
     ];
-
-
 
     protected $dates = ['tanggal_transaksi'];
 
-    // Relasi ke model Barang
-    public function barang()
-    {
-        return $this->belongsTo(Barang::class, 'id_barang', 'id_barang');
-    }
-
-    // Relasi ke model User
+    // Relasi ke user
     public function user()
     {
         return $this->belongsTo(User::class, 'id');
     }
 
-    // Relasi ke model Diskon
-    // public function diskon()
-    // {
-    //     return $this->belongsTo(Diskon::class, 'id_diskon', 'id_diskon');
-    // }
+    // Relasi ke detail transaksi (many)
+    public function detail()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'id_transaksi', 'id_transaksi');
+    }
 }

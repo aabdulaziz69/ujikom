@@ -22,9 +22,10 @@
                         <h4 class="card-title">{{ $title }}</h4>
                         @auth
                             @if (auth()->user()->role === 'petugas')
+                                <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
                             @endif
                         @endauth
-                        <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
+
 
                     </div>
                     <div class="card-body">
@@ -33,8 +34,6 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>ID Transaksi</th>
-                                        <th>Nama Barang</th>
-                                        <th>Jumlah Barang</th>
                                         <th>Nama Petugas</th>
                                         <th>Total Bayar</th>
                                         <th>Tanggal Transaksi</th>
@@ -45,8 +44,6 @@
                                     @foreach ($transaksi as $trx)
                                         <tr>
                                             <td>{{ $trx->id_transaksi }}</td>
-                                            <td>{{ $trx->nama_barang }}</td>
-                                            <td>{{ $trx->jumlah_barang }}</td>
                                             <td>{{ $trx->nama_user }}</td>
                                             <td>{{ $trx->bayar_total }}</td>
                                             <td>{{ $trx->tanggal_transaksi }}</td>
