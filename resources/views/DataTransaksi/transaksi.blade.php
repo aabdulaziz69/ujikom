@@ -54,7 +54,7 @@
                                                         Struk
                                                     </a>
                                                     @auth
-                                                        @if (auth()->user()->role === 'petugas')
+                                                        @if (auth()->user()->role === 'admin')
                                                             <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
 
                                                             <form action="{{ route('transaksi.destroy', $trx->id_transaksi) }}"

@@ -29,6 +29,7 @@
                 sessionStorage.fonts = true;
             },
         });
+
     </script>
 
     <!-- CSS Files -->
@@ -164,45 +165,46 @@
                                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
                                     aria-expanded="false">
                                     <div class="avatar-sm">
-                                        <img src=" {{ asset('kaiadmin') }}/assets/img/profile.jpg" alt="..."
+                                        <img src="{{ asset('kaiadmin') }}/assets/img/profile.jpg" alt="..."
                                             class="avatar-img rounded-circle" />
                                     </div>
                                     <span class="profile-username">
-                                        <span class="op-7">Hi,</span>
+                                        <span class="op-7">Hello,</span>
                                         <span class="fw-bold">{{ auth()->user()->name }}</span>
                                     </span>
                                 </a>
-                                <ul class="dropdown-menu dropdown-user animated fadeIn">
+                                <ul class="dropdown-menu dropdown-user animated fadeIn" style="min-width: 220px;">
                                     <div class="dropdown-user-scroll scrollbar-outer">
                                         <li>
-                                            <div class="user-box">
-                                                <div class="avatar-lg">
+                                            <div class="user-box p-4 d-flex align-items-center">
+                                                <div class="avatar-lg me-3">
                                                     <img src="{{ asset('storage/' . auth()->user()->profile_picture) }}"
-                                                        alt="image profile" class="avatar-img rounded" />
+                                                        alt="image profile" class="avatar-img rounded-circle" />
                                                 </div>
                                                 <div class="u-text">
-                                                    <h4>{{ auth()->user()->name }}</h4>
-                                                    <p class="text-muted">{{ auth()->user()->email }}</p>
+                                                    <h5 class="fw-bold text-dark">{{ auth()->user()->name }}</h5>
+                                                    <p class="text-muted mb-0">{{ auth()->user()->email }}</p>
                                                 </div>
                                             </div>
-
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">My Profile</a>
-
+                                        </li>
+                                        <li>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                                 style="display: none;">
                                                 @csrf
                                             </form>
-
-                                            <a class="dropdown-item" href="#"
-                                                onclick="document.getElementById('logout-form').submit();">Logout</a>
-
+                                            <a class="dropdown-item d-flex align-items-center text-danger"
+                                                href="#"
+                                                onclick="document.getElementById('logout-form').submit();">
+                                                <i class="fas fa-sign-out-alt me-3"></i> Logout
+                                            </a>
                                         </li>
                                     </div>
                                 </ul>
                             </li>
+
                         </ul>
                     </div>
                 </nav>
@@ -280,9 +282,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="custom-toggle">
-                <i class="icon-settings"></i>
             </div>
         </div>
         <!-- End Custom template -->

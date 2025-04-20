@@ -117,7 +117,7 @@ class TransaksiController extends Controller
     public function struk($id)
     {
         $title = "Struk";
-        $transaksi = Transaksi::findOrFail($id);
+        $transaksi = Transaksi::with(['detail.barang'])->findOrFail($id);
 
         return view('DataTransaksi.struk', compact('transaksi', 'title'));
     }
