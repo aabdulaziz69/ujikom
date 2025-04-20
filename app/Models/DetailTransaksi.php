@@ -14,8 +14,9 @@ class DetailTransaksi extends Model
     protected $fillable = [
         'id_transaksi',
         'id_barang',
-        'nama_barang', // baru
-        'diskon', // baru
+        'harga_awal',       // harga asli dari barang
+        'diskon',           // diskon dalam persen
+        'harga_diskon',     // harga setelah diskon
         'jumlah_barang',
     ];
 

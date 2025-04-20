@@ -1,8 +1,5 @@
 @extends('temp')
 @section('content')
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
     <div class="page-inner">
         <div class="page-header">
             <ul class="breadcrumbs mb-3">
@@ -20,11 +17,8 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $title }}</h4>
-                        @auth
-                            @if (auth()->user()->role === 'petugas')
                                 <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
-                            @endif
-                        @endauth
+
 
 
                     </div>
@@ -34,9 +28,12 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>ID Transaksi</th>
-                                        <th>Nama Petugas</th>
-                                        <th>Total Bayar</th>
                                         <th>Tanggal Transaksi</th>
+                                        <th>Nama Petugas</th>
+                                        <th>Total Harga</th>
+                                        <th>Total Harga + Pajak</th>
+                                        <th>Total Bayar</th>
+                                        <th>Kembalian</th>
                                         <th class="text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -44,9 +41,13 @@
                                     @foreach ($transaksi as $trx)
                                         <tr>
                                             <td>{{ $trx->id_transaksi }}</td>
-                                            <td>{{ $trx->nama_user }}</td>
-                                            <td>{{ $trx->bayar_total }}</td>
                                             <td>{{ $trx->tanggal_transaksi }}</td>
+                                            <td>{{ $trx->nama_user }}</td>
+                                            <td>{{ number_format($trx->bayar_total, 0, ',', '.') }}</td>
+                                            <td>{{ number_format($trx->total_pajak, 0, ',', '.') }}</td>
+                                            <td>{{ number_format($trx->uang_bayar, 0, ',', '.') }}</td>
+                                            <td>{{ number_format($trx->kembalian, 0, ',', '.') }}</td>
+
                                             <td class="text-center">
                                                 <div class="d-flex justify-content-center">
                                                     <a href="{{ route('transaksi.struk', $trx->id_transaksi) }}"
@@ -55,7 +56,6 @@
                                                     </a>
                                                     @auth
                                                         @if (auth()->user()->role === 'admin')
-                                                            <a href="#" class="btn btn-warning btn-sm me-1">Edit</a>
 
                                                             <form action="{{ route('transaksi.destroy', $trx->id_transaksi) }}"
                                                                 method="POST" class="d-inline">

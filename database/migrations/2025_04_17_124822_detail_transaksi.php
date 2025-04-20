@@ -16,11 +16,17 @@ return new class extends Migration
             $table->unsignedBigInteger('id_transaksi');
             $table->unsignedBigInteger('id_barang');
             $table->integer('jumlah_barang');
+
+            // Optional tambahan untuk jejak histori
+            $table->bigInteger('harga_awal');      // Harga asli per item
+            $table->bigInteger('harga_diskon');    // Harga setelah diskon per item
+
             $table->timestamps();
 
             $table->foreign('id_transaksi')->references('id_transaksi')->on('transaksi')->onDelete('cascade');
             $table->foreign('id_barang')->references('id_barang')->on('barang')->onDelete('cascade');
         });
+
 
 
     }

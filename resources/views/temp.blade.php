@@ -6,7 +6,7 @@
     <title>{{ env('APP_NAME') }} - {{ $title }}</title>
 
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href=" {{ asset('kaiadmin') }}/assets/img/kaiadmin/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href=" {{ asset('image/ws.png') }}" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Fonts and icons -->
@@ -49,8 +49,8 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="index.html" class="logo">
-                        <img src=" {{ asset('kaiadmin') }}/assets/img/kaiadmin/logo_light.svg" alt="navbar brand"
-                            class="navbar-brand" height="20" />
+                        <img src=" {{ asset('image/ws.png') }}" alt="navbar brand"
+                            class="navbar-brand" height="50" />
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">

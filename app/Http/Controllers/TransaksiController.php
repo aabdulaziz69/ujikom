@@ -50,24 +50,43 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
+        // Membuat transaksi baru
         $transaksi = Transaksi::create([
             'id' => $request->id,
             'bayar_total' => str_replace('.', '', $request->bayar_total), // hilangkan titik
+            'total_pajak' => str_replace('.', '', $request->total_pajak), // pajak 12%
+            // 'total_setelah_pajak' => str_replace('.', '', $request->total_setelah_pajak), // total setelah pajak
+            'uang_bayar' => str_replace('.', '', $request->uang_bayar), // uang bayar
+            'kembalian' => str_replace('.', '', $request->kembalian_hidden), // kembalian
             'tanggal_transaksi' => now(),
         ]);
 
+        // Menyimpan detail transaksi untuk setiap barang
         foreach ($request->barang_id as $index => $id_barang) {
             if ($id_barang) {
+                // Ambil data barang berdasarkan id_barang
+                $barang = Barang::find($id_barang);
+
+                // Hitung harga setelah diskon
+                $harga_awal = $barang->harga_barang;
+                $diskon = $barang->diskon;
+                $harga_diskon = $harga_awal - ($harga_awal * ($diskon / 100));
+
                 DetailTransaksi::create([
                     'id_transaksi' => $transaksi->id_transaksi,
                     'id_barang' => $id_barang,
+
+                    'harga_awal' => $harga_awal,
+                    'harga_diskon' => $harga_diskon, // Simpan harga setelah diskon
                     'jumlah_barang' => $request->jumlah[$index],
                 ]);
             }
         }
 
+        // Redirect dengan pesan sukses
         return redirect()->route('transaksi')->with('success', 'Transaksi berhasil disimpan!');
     }
+
 
 
     public function update(Request $request, $id)
