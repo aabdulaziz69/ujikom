@@ -86,7 +86,8 @@
                             <div class="mb-3">
                                 <label>Kembalian / Kurang</label>
                                 <input type="text" id="kembalian" name="kembalian" class="form-control" readonly>
-                                <input type="hidden" id="kembalian_hidden" name="kembalian_hidden" class="form-control" readonly>
+                                <input type="hidden" id="kembalian_hidden" name="kembalian_hidden" class="form-control"
+                                    readonly>
                             </div>
 
 
@@ -193,20 +194,20 @@
 
         // format rupiah
         function formatRupiah(angka) {
-    let number_string = angka.replace(/[^,\d]/g, '').toString(),
-        split = number_string.split(','),
-        sisa = split[0].length % 3,
-        rupiah = split[0].substr(0, sisa),
-        ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+            let number_string = angka.replace(/[^,\d]/g, '').toString(),
+                split = number_string.split(','),
+                sisa = split[0].length % 3,
+                rupiah = split[0].substr(0, sisa),
+                ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-    if (ribuan) {
-        const separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
+            if (ribuan) {
+                const separator = sisa ? '.' : '';
+                rupiah += separator + ribuan.join('.');
+            }
 
-    rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
-    return rupiah;
-}
+            rupiah = split[1] !== undefined ? rupiah + ',' + split[1] : rupiah;
+            return rupiah;
+        }
 
         document.getElementById('uang_bayar').addEventListener('input', function(e) {
             let raw = e.target.value.replace(/\D/g, ''); // hapus semua kecuali angka
@@ -214,6 +215,5 @@
             document.getElementById('uang_bayar_hidden').value = raw; // simpan asli untuk hitung
             hitungTotal(); // lanjut hitung kembalian
         });
-
     </script>
 @endsection

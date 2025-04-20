@@ -6,9 +6,9 @@
     <title>{{ env('APP_NAME') }} - {{ $title }}</title>
 
     <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
-    <link rel="icon" href=" {{ asset('image/ws.png') }}" type="image/x-icon" />
+    <link rel="icon" href=" {{ asset('image/ws-removebg-preview.png') }}" type="image/x-icon" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://unpkg.com/html5-qrcode/minified/html5-qrcode.min.js"></script>
     <!-- Fonts and icons -->
     <script src=" {{ asset('kaiadmin') }}/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -49,7 +49,7 @@
                 <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="index.html" class="logo">
-                        <img src=" {{ asset('image/ws.png') }}" alt="navbar brand"
+                        <img src=" {{ asset('image/ws-removebg-preview.png') }}" alt="navbar brand"
                             class="navbar-brand" height="50" />
                     </a>
                     <div class="nav-toggle">
@@ -69,21 +69,23 @@
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
                     <ul class="nav nav-secondary">
-                        <li class="nav-item">
-                            <a href="#">
+                        <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('dashboard') }}">
                                 <i class="fas fa-home"></i>
                                 <p>Dashboard</p>
                             </a>
                         </li>
+
                         <li class="nav-section">
                             <span class="sidebar-mini-icon">
                                 <i class="fa fa-ellipsis-h"></i>
                             </span>
                             <h4 class="text-section">Components</h4>
                         </li>
+
                         @auth
                             @if (auth()->user()->role === 'admin')
-                                <li class="nav-item">
+                                <li class="nav-item {{ request()->routeIs('user*') ? 'active' : '' }}">
                                     <a href="{{ route('user') }}">
                                         <i class="fas fa-user"></i>
                                         <p>Data User</p>
@@ -91,13 +93,15 @@
                                 </li>
                             @endif
                         @endauth
-                        <li class="nav-item">
+
+                        <li class="nav-item {{ request()->routeIs('barang*') ? 'active' : '' }}">
                             <a href="{{ route('barang') }}">
                                 <i class="fas fa-box"></i>
                                 <p>Data Barang</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+
+                        <li class="nav-item {{ request()->routeIs('transaksi*') ? 'active' : '' }}">
                             <a href="{{ route('transaksi') }}">
                                 <i class="fas fa-exchange-alt"></i>
                                 <p>Data Transaksi</p>
@@ -105,6 +109,7 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
         </div>
         <!-- End Sidebar -->

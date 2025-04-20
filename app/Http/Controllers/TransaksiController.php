@@ -48,6 +48,16 @@ class TransaksiController extends Controller
         return view('DataTransaksi.tambah', compact('title', 'users', 'barangs'));
     }
 
+    public function createQr()
+    {
+        $title = "Tambah Transaksi";
+        $users = User::all(); // untuk dropdown user
+        $barangs = Barang::all(); // untuk dropdown user
+        return view('DataTransaksi.tambah-qr', compact('title', 'users', 'barangs'));
+    }
+
+
+
     public function store(Request $request)
     {
         // Membuat transaksi baru

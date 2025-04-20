@@ -90,10 +90,10 @@
         <div class="container vh-100 d-flex justify-content-center align-items-center bg-light">
             <div class="container vh-100 d-flex justify-content-center align-items-center">
                 <div class="login-card col-md-4">
-                    {{-- <div class="text-center mb-3">
-                        <img src="{{ asset('img/logo.png') }}" alt="Logo" height="60">
-                    </div> --}}
 
+                    <div class="text-center">
+                        <img src="{{ asset('image/ws-removebg-preview.png') }}" alt="Logo" height="120">
+                    </div>
                     <form action="{{ route('proses.login') }}" method="POST">
                         @csrf
                         <div class="text-center mb-4">

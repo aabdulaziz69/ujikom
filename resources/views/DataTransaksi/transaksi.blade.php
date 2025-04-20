@@ -17,10 +17,7 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="card-title">{{ $title }}</h4>
-                                <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
-
-
-
+                        <a href="{{ route('transaksi.tambah') }}" class="btn btn-primary btn-sm">Tambah Transaksi</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -56,7 +53,6 @@
                                                     </a>
                                                     @auth
                                                         @if (auth()->user()->role === 'admin')
-
                                                             <form action="{{ route('transaksi.destroy', $trx->id_transaksi) }}"
                                                                 method="POST" class="d-inline">
                                                                 @csrf

@@ -52,4 +52,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'struk'])->name('transaksi.struk');
 
     Route::delete('/transaksi/{id_transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+    Route::get('/transaksi/tambah-qr', [TransaksiController::class, 'createQr'])->name('transaksi.tambah-qr');
 });
